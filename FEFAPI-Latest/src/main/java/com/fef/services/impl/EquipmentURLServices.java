@@ -32,7 +32,7 @@ public class EquipmentURLServices implements IEquipmentURLServices
     public AStarEquipmentUrl updateEquipmentURL(AStarEquipmentUrl url)
     {
 	AStarEquipmentUrl returnValue ;
-	Optional<AStarEquipmentUrl> optional = urlRepository.findById(url.getId());
+	Optional<AStarEquipmentUrl> optional = urlRepository.findById(url.getSystemId());
 	if (optional.isPresent())
 	{
 	    AStarEquipmentUrl starEquipmentUrl = optional.get();
@@ -43,7 +43,7 @@ public class EquipmentURLServices implements IEquipmentURLServices
 	}
 	else
 	{
-	    throw new UrlNotFoundException("equipment not found in the DB to delete id :: " + url.getId());
+	    throw new UrlNotFoundException("equipment not found in the DB to delete id :: " + url.getSystemId());
 	}
 	
 	return returnValue;
@@ -51,10 +51,11 @@ public class EquipmentURLServices implements IEquipmentURLServices
     }
 
     @Override
-    public boolean deleteEquipmentURL(Integer id)
+//    public boolean deleteEquipmentURL(Integer id)
+    public boolean deleteEquipmentURL(String systemId)
     {
 	boolean returnValue = false;
-	Optional<AStarEquipmentUrl> optional = urlRepository.findById(id);
+	Optional<AStarEquipmentUrl> optional = urlRepository.findById(systemId);
 	if (optional.isPresent())
 	{
 	    AStarEquipmentUrl starEquipmentUrl = optional.get();
@@ -66,7 +67,7 @@ public class EquipmentURLServices implements IEquipmentURLServices
 	}
 	else
 	{
-	    throw new UrlNotFoundException("Equipment URL not found in the DB to delete id :: " + id);
+	    throw new UrlNotFoundException("Equipment URL not found in the DB to delete id :: " + systemId);
 	}
 	
 	return returnValue;
@@ -74,16 +75,16 @@ public class EquipmentURLServices implements IEquipmentURLServices
     }
 
     @Override
-    public AStarEquipmentUrl getEquipmentURL(Integer id)
+    public AStarEquipmentUrl getEquipmentURL(String systemId)
     {
-	Optional<AStarEquipmentUrl> optional = urlRepository.findById(id);
+	Optional<AStarEquipmentUrl> optional = urlRepository.findById(systemId);
 	if (optional.isPresent())
 	{
 	    return optional.get();
 	}
 	else
 	{
-	    throw new UrlNotFoundException("Equipment URL not found in the DB for id :: " + id);
+	    throw new UrlNotFoundException("Equipment URL not found in the DB for id :: " + systemId);
 	}
     }
 

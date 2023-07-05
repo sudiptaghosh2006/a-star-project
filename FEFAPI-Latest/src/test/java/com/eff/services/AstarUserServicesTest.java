@@ -1,11 +1,8 @@
 package com.eff.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.fef.common.dto.UserType;
 import com.fef.model.AStarApplicationUser;
-import com.fef.model.AStarEquipment;
 import com.fef.repositories.IUserRepository;
 import com.fef.services.impl.AstarUserServices;
 

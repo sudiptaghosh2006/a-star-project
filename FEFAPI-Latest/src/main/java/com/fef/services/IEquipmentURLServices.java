@@ -13,9 +13,9 @@ public interface IEquipmentURLServices
     
     public AStarEquipmentUrl updateEquipmentURL(AStarEquipmentUrl url);
     
-    public boolean deleteEquipmentURL(Integer id);
+    public boolean deleteEquipmentURL(String systemId);
     
-    public AStarEquipmentUrl getEquipmentURL(Integer id);
+    public AStarEquipmentUrl getEquipmentURL(String systemId);
        
     public List<AStarEquipmentUrl> getAllEquipmentURL();
     

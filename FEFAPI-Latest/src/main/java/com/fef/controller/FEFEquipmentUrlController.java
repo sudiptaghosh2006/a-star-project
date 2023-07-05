@@ -55,13 +55,13 @@ public class FEFEquipmentUrlController
 
     }
     
-    @GetMapping("/api/v1/urls/{id}")
+    @GetMapping("/api/v1/urls/{systemId}")
     @Operation(tags = "Equipment URL Finder", description = "Gets the Equipment URL ", summary = "Equipment URL finder")
-    public ResponseEntity<ApplicationResponseData<AStarEquipmentUrl>> getAllActiveURLByID(@PathVariable Integer id )
+    public ResponseEntity<ApplicationResponseData<AStarEquipmentUrl>> getAllActiveURLByID(@PathVariable String systemId )
     {
-	LOGGER.debug("Started operation to retrieve Equipment URLs for :: {}",id);
+	LOGGER.debug("Started operation to retrieve Equipment URLs for :: {}",systemId);
 	
-	AStarEquipmentUrl url = services.getEquipmentURL(id);
+	AStarEquipmentUrl url = services.getEquipmentURL(systemId);
 	ServiceResponseStatus responseStatus = new ServiceResponseStatus();
 	responseStatus.setResponseCode(ServiceResponseStatusConstant.SUCCESS_CODE);
 	responseStatus.setResponseMessage(ServiceResponseStatusConstant.SUCCESS_MESSAGE);
@@ -69,7 +69,7 @@ public class FEFEquipmentUrlController
 	responseData.setResponseData(url);
 	responseData.setResponseStatus(responseStatus);
 	
-	LOGGER.debug("Finished operation to retrieve  Equipment URLs for :: ",id);
+	LOGGER.debug("Finished operation to retrieve  Equipment URLs for :: ",systemId);
 
 	return new ResponseEntity<ApplicationResponseData< AStarEquipmentUrl>>(responseData, HttpStatus.OK);
 	
@@ -117,11 +117,11 @@ public class FEFEquipmentUrlController
 
     @DeleteMapping("/api/v1/urls/{id}")
     @Operation(tags = "Equipment URL Finder", description = "Delete the Equipment URL ", summary = "Delete the Equipment URL (Soft Delete)")
-    public ResponseEntity<ApplicationResponseData<Boolean>> deleteActiveURL(@RequestBody Integer id )
+    public ResponseEntity<ApplicationResponseData<Boolean>> deleteActiveURL(@RequestBody String systemId )
     {
-	LOGGER.debug("Started operation to delete Equipment URLs for :: {}",id);
+	LOGGER.debug("Started operation to delete Equipment URLs for :: {}",systemId);
 	
-	 boolean deleteEquipmentURL = services.deleteEquipmentURL(id);
+	 boolean deleteEquipmentURL = services.deleteEquipmentURL(systemId);
 	ServiceResponseStatus responseStatus = new ServiceResponseStatus();
 	responseStatus.setResponseCode(ServiceResponseStatusConstant.SUCCESS_CODE);
 	responseStatus.setResponseMessage(ServiceResponseStatusConstant.SUCCESS_MESSAGE);
@@ -129,7 +129,7 @@ public class FEFEquipmentUrlController
 	responseData.setResponseData(deleteEquipmentURL);
 	responseData.setResponseStatus(responseStatus);
 	
-	LOGGER.debug("Finished operation to delete Equipment URLs for :: ",id);
+	LOGGER.debug("Finished operation to delete Equipment URLs for :: ",systemId);
 
 	return new ResponseEntity<ApplicationResponseData< Boolean>>(responseData, HttpStatus.OK);
     }

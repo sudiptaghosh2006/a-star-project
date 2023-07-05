@@ -18,22 +18,28 @@ import jakarta.persistence.Table;
 @Table(name = "AStarEquipmentUrls")
 public class AStarEquipmentUrl
 {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id; 
+//    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; 
+    private String systemId;
+    
+    
     @Column(nullable = false) 
     private String systemUrl;
+    
     
     private boolean active;
     
     
-    public Integer getId()
+    public String getSystemId()
     {
-        return id;
+        return systemId;
     }
-    public AStarEquipmentUrl setId(Integer id)
+    public AStarEquipmentUrl setId(String systemId)
     {
-        this.id = id;
+        this.systemId = systemId;
         return this;
     }
     public String getSystemUrl()
