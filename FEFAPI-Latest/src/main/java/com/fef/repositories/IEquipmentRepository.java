@@ -12,5 +12,7 @@ public interface IEquipmentRepository extends CrudRepository<AStarEquipment, Int
     public List<AStarEquipment> findByOemNameOrFabName(String oemName, String fabName);
 
     public List<AStarEquipment> findByIsActiveTrueAndOemNameOrIsActiveTrueAndFabName(String oemName, String fabName);
+    
+    public List<AStarEquipment> findByAppName(String appName);
 
 }

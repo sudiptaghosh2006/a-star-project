@@ -14,7 +14,7 @@ import com.fef.common.dto.ServiceResponseStatusConstant;
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler
 {
 
-    @ExceptionHandler(value = { EquipmentNotFoundException.class,UserNotFoundException.class ,UrlNotFoundException.class,TokenException.class })
+    @ExceptionHandler(value = { EquipmentNotFoundException.class,UserNotFoundException.class ,UrlNotFoundException.class,TokenException.class,DuplicateEquipmentFoundException.class })
     protected ResponseEntity<ServiceResponseStatus> handleEquipmentServiceException(RuntimeException ex,
 	    WebRequest request)
     {

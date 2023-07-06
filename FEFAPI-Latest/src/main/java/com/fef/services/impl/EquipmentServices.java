@@ -3,10 +3,13 @@ package com.fef.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fef.dto.AStarEquipmentRequestDTO;
+import com.fef.exception.DuplicateEquipmentFoundException;
 import com.fef.exception.EquipmentNotFoundException;
 import com.fef.model.AStarEquipment;
 import com.fef.repositories.IEquipmentRepository;
@@ -23,6 +26,9 @@ public class EquipmentServices implements IEquipmentServices
 
     @Autowired
     private IOEMURLServices urlServices;
+    
+    @Autowired   
+   private ModelMapper modelMapper;
 
     @Override
     public List<AStarEquipment> getAll()
@@ -59,12 +65,10 @@ public class EquipmentServices implements IEquipmentServices
     }
 
     @Override
-    public List<AStarEquipment> getOemNameOrFabName(String oemName, String fabName)
+    public List<AStarEquipment> getOemNameOrFabName(String oemNameOrFabName)
     {
-//	https://capsmc.service-now.com/smc?id=smc_equipment&oem_name=A_SCAN_0010002
-
 	List<AStarEquipment> dataList = equipmentRepository
-		.findByIsActiveTrueAndOemNameOrIsActiveTrueAndFabName(oemName, fabName);
+		.findByIsActiveTrueAndOemNameOrIsActiveTrueAndFabName(oemNameOrFabName,oemNameOrFabName);
 	if (!dataList.isEmpty())
 	{
 //	   	    equipment = updateUrl(equipment);
@@ -74,7 +78,7 @@ public class EquipmentServices implements IEquipmentServices
 	else
 	{
 	    throw new EquipmentNotFoundException(
-		    "Equipment not found in DB for Oem Name =" + oemName + " or Fab Name =  " + fabName);
+		    "Equipment not found in DB for Oem Name or Fab Name =  " + oemNameOrFabName);
 	}
     }
 
@@ -112,6 +116,14 @@ public class EquipmentServices implements IEquipmentServices
 	    equipment = findById.get();
 	    equipment.setDefaultOemUrl(equipmentUpdate.getDefaultOemUrl());
 	    equipment.setActive(equipmentUpdate.isActive());
+	    equipment.setAppName(equipmentUpdate.getAppName());
+	    equipment.setFabName(equipmentUpdate.getFabName());
+	    equipment.setLegacyService(equipmentUpdate.isLegacyService());
+	    equipment.setMachineId(equipmentUpdate.getMachineId());
+	    equipment.setOemName(equipmentUpdate.getOemName());
+	    
+	    
+	    
 	    AStarEquipment savedEquipment = equipmentRepository.save(equipment);
 	    return savedEquipment;
 	}
@@ -120,5 +132,26 @@ public class EquipmentServices implements IEquipmentServices
 	    throw new EquipmentNotFoundException("Equipment not found in DB for id :: " + equipmentUpdate.getId());
 	}
     }
+
+    @Override
+    public AStarEquipment save(AStarEquipmentRequestDTO equipment)
+    {
+	checkBeforeSave(equipment.getAppName());	
+	AStarEquipment newEquipment = modelMapper.map(equipment, AStarEquipment.class);
+	
+	AStarEquipment savedEquipment = equipmentRepository.save(newEquipment);
+	
+	return savedEquipment;
+    }
+    
+    private void checkBeforeSave(String appName)
+    {
+	List<AStarEquipment> activeEquipmentWithAppName = equipmentRepository.findByAppName(appName);
+	if(activeEquipmentWithAppName.size()>0)
+	{
+	    throw new DuplicateEquipmentFoundException("Active equipment found in DB with same app name = "+appName );
+	}
+    }
+    
 
 }

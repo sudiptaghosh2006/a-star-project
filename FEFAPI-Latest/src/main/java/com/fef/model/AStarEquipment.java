@@ -22,10 +22,10 @@ public class AStarEquipment
     @Column(nullable=false)
     private Integer machineId; 
     
-    @Column(nullable = false) 
+    @Column(nullable = true) 
     private String fabName;
     
-    @Column(nullable = false) 
+    @Column(nullable = true) 
     private String oemName;
     
     private String defaultOemUrl;
@@ -64,12 +64,12 @@ public class AStarEquipment
 
     public Integer getId()
     {
-	return machineId;
+	return id;
     }
 
     public AStarEquipment setId(Integer id)
     {
-	this.machineId = id;
+	this.id = id;
 	return this;
     }
 
