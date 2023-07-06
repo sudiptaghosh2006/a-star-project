@@ -1,32 +1,44 @@
 package com.fef.services.impl;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fef.model.AStarEquipmentUrl;
+import com.fef.repositories.IEquipmentUrlRepository;
 import com.fef.services.IOEMURLServices;
+
+import jakarta.annotation.PostConstruct;
 
 @Service
 @Transactional
 public class OEMURLServices implements IOEMURLServices
 {
-    
-    @Value("${equipment.semiconnext.url}")
-    private String semiConnextURL;
-
-    @Value("${equipment.legacy.url}")
-    private String legacyURL;
+    @Autowired
+    private IEquipmentUrlRepository repository;
+    private Map<String, String> urlMap;
 
     @Override
     public String getLegacyURL()
     {
-	return legacyURL;
+	return urlMap.get("LEGACY");
     }
 
     @Override
     public String getSemiConnextURL()
-    {
-	return semiConnextURL;
+    {	
+	return urlMap.get("SEMI_CONNEXT");
+    }
+    
+    @PostConstruct
+    private void retrieveSystemURL() {
+	
+	List<AStarEquipmentUrl> listUrl = (List<AStarEquipmentUrl>) repository.findAll();
+	urlMap = listUrl.stream().collect(Collectors.toMap(url->url.getSystemId(),url->url.getSystemUrl()));
     }
 
 }

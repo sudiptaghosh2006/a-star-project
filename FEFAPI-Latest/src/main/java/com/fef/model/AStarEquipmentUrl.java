@@ -18,20 +18,12 @@ import jakarta.persistence.Table;
 @Table(name = "AStarEquipmentUrls")
 public class AStarEquipmentUrl
 {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id; 
-//    
+   
     @Id
-    private String systemId;
-    
-    
+    private String systemId;   
+   
     @Column(nullable = false) 
-    private String systemUrl;
-    
-    
-    private boolean active;
-    
+    private String systemUrl;   
     
     public String getSystemId()
     {
@@ -51,15 +43,4 @@ public class AStarEquipmentUrl
         this.systemUrl = systemUrl;
         return this;
     }
-    public boolean isActive()
-    {
-	return active;
-    }
-    public void setActive(boolean active)
-    {
-	this.active = active;
-    }
-    
-    
-    
 }

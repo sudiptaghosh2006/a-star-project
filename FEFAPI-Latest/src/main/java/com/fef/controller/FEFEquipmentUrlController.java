@@ -116,7 +116,7 @@ public class FEFEquipmentUrlController
     }
 
     @DeleteMapping("/api/v1/urls/{id}")
-    @Operation(tags = "Equipment URL Finder", description = "Delete the Equipment URL ", summary = "Delete the Equipment URL (Soft Delete)")
+    @Operation(tags = "Equipment URL Finder", description = "Delete the Equipment URL ", summary = "Delete the Equipment URL")
     public ResponseEntity<ApplicationResponseData<Boolean>> deleteActiveURL(@RequestBody String systemId )
     {
 	LOGGER.debug("Started operation to delete Equipment URLs for :: {}",systemId);

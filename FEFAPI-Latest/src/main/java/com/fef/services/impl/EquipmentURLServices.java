@@ -24,8 +24,6 @@ public class EquipmentURLServices implements IEquipmentURLServices
     public AStarEquipmentUrl createEquipmentURL(AStarEquipmentUrl url)
     {
 	return urlRepository.save(url);
-	
-
     }
 
     @Override
@@ -36,7 +34,6 @@ public class EquipmentURLServices implements IEquipmentURLServices
 	if (optional.isPresent())
 	{
 	    AStarEquipmentUrl starEquipmentUrl = optional.get();
-	    starEquipmentUrl.setActive(url.isActive());
 	    starEquipmentUrl.setSystemUrl(url.getSystemUrl());
 	    urlRepository.save(starEquipmentUrl);	    
 	    returnValue = starEquipmentUrl;
@@ -51,7 +48,6 @@ public class EquipmentURLServices implements IEquipmentURLServices
     }
 
     @Override
-//    public boolean deleteEquipmentURL(Integer id)
     public boolean deleteEquipmentURL(String systemId)
     {
 	boolean returnValue = false;
@@ -59,17 +55,13 @@ public class EquipmentURLServices implements IEquipmentURLServices
 	if (optional.isPresent())
 	{
 	    AStarEquipmentUrl starEquipmentUrl = optional.get();
-	    starEquipmentUrl.setActive(false);
-	    urlRepository.save(starEquipmentUrl);
+	    urlRepository.delete(starEquipmentUrl);
 	    returnValue = true;
-	    
-
 	}
 	else
 	{
 	    throw new UrlNotFoundException("Equipment URL not found in the DB to delete id :: " + systemId);
-	}
-	
+	}	
 	return returnValue;
 
     }
