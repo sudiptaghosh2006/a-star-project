@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import com.fef.common.dto.ApplicationResponseData;
 import com.fef.common.dto.UserType;
 import com.fef.controller.FEFUserController;
-import com.fef.model.AStarApplicationUser;
+import com.fef.model.FEFApplicationUser;
 import com.fef.services.IUserServices;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,14 +32,14 @@ class FEFUserControllerTest
     @Test
     void testGetUser()
     {
-	List<AStarApplicationUser> list = new ArrayList<AStarApplicationUser>();
-	AStarApplicationUser user1 = new AStarApplicationUser().setUserName("Sudipta").setUserType(UserType.ADMIN);
-	AStarApplicationUser user2 = new AStarApplicationUser().setUserName("Sudipta123").setUserType(UserType.ADMIN);
+	List<FEFApplicationUser> list = new ArrayList<FEFApplicationUser>();
+	FEFApplicationUser user1 = new FEFApplicationUser().setUserName("Sudipta").setUserType(UserType.ADMIN);
+	FEFApplicationUser user2 = new FEFApplicationUser().setUserName("Sudipta123").setUserType(UserType.ADMIN);
 	list.add(user1);
 	list.add(user2);
         when(userServices.getUser("Sudipta")).thenReturn(user1);
 
-        ResponseEntity<ApplicationResponseData<AStarApplicationUser>> user = userController.getUser("Sudipta");
+        ResponseEntity<ApplicationResponseData<FEFApplicationUser>> user = userController.getUser("Sudipta");
         assertThat(user.getBody().getResponseData().getUserName()).isEqualTo("Sudipta");
         assertThat(user.getBody().getResponseStatus().getResponseCode()).isEqualTo(0);
         assertThat(user.getBody().getResponseStatus().getDetailMessageList()).isEqualTo(null);   

@@ -14,15 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fef.common.dto.ApplicationResponseData;
 import com.fef.common.dto.ServiceResponseStatus;
 import com.fef.common.dto.ServiceResponseStatusConstant;
-import com.fef.model.AStarApplicationUser;
+import com.fef.model.FEFApplicationUser;
 import com.fef.services.IUserServices;
 
 import io.swagger.v3.oas.annotations.Operation;
 
-
 @RestController
 public class FEFUserController
-{    
+{
     @Autowired
     private IUserServices userServices;
 
@@ -30,43 +29,41 @@ public class FEFUserController
 
     @GetMapping("/api/v1/users/{userName}")
     @Operation(tags = "User Finder", description = "Gets the user data ", summary = "user finder")
-    public ResponseEntity<ApplicationResponseData< AStarApplicationUser>> getUser(@PathVariable String userName)
+    public ResponseEntity<ApplicationResponseData<FEFApplicationUser>> getUser(@PathVariable String userName)
     {
-	LOGGER.debug("Started operation to retrieve User for :: {} ",userName);
-	
-	AStarApplicationUser user = userServices.getUser(userName);
+	LOGGER.debug("Started operation to retrieve User for :: {} ", userName);
+
+	FEFApplicationUser user = userServices.getUser(userName);
 	ServiceResponseStatus responseStatus = new ServiceResponseStatus();
 	responseStatus.setResponseCode(ServiceResponseStatusConstant.SUCCESS_CODE);
 	responseStatus.setResponseMessage(ServiceResponseStatusConstant.SUCCESS_MESSAGE);
-	ApplicationResponseData< AStarApplicationUser> responseData=new ApplicationResponseData<>();
+	ApplicationResponseData<FEFApplicationUser> responseData = new ApplicationResponseData<>();
 	responseData.setResponseData(user);
 	responseData.setResponseStatus(responseStatus);
-	
-	LOGGER.debug("Finished operation to retrieve equipment for :: {} ",userName);
 
-	return new ResponseEntity<ApplicationResponseData<AStarApplicationUser>>(responseData, HttpStatus.OK);
-	
+	LOGGER.debug("Finished operation to retrieve equipment for :: {} ", userName);
+
+	return new ResponseEntity<ApplicationResponseData<FEFApplicationUser>>(responseData, HttpStatus.OK);
 
     }
-    
+
     @GetMapping("/api/v1/users/")
     @Operation(tags = "User Finder", description = "Gets entire user list in the system.This is for ADMIN user ", summary = "user finder")
-    public ResponseEntity<ApplicationResponseData<List<AStarApplicationUser>>> getAllUsers()
+    public ResponseEntity<ApplicationResponseData<List<FEFApplicationUser>>> getAllUsers()
     {
 	LOGGER.debug("Started operation to retrieve all users for ");
-	
-	List<AStarApplicationUser> allUser = userServices.getAllUser();
+
+	List<FEFApplicationUser> allUser = userServices.getAllUser();
 	ServiceResponseStatus responseStatus = new ServiceResponseStatus();
 	responseStatus.setResponseCode(ServiceResponseStatusConstant.SUCCESS_CODE);
 	responseStatus.setResponseMessage(ServiceResponseStatusConstant.SUCCESS_MESSAGE);
-	ApplicationResponseData< List<AStarApplicationUser>> responseData=new ApplicationResponseData<>();
+	ApplicationResponseData<List<FEFApplicationUser>> responseData = new ApplicationResponseData<>();
 	responseData.setResponseData(allUser);
 	responseData.setResponseStatus(responseStatus);
-	
+
 	LOGGER.debug("Finished operation to retrieve all users");
 
-	return new ResponseEntity<ApplicationResponseData<List<AStarApplicationUser>>>(responseData, HttpStatus.OK);
-	
+	return new ResponseEntity<ApplicationResponseData<List<FEFApplicationUser>>>(responseData, HttpStatus.OK);
 
     }
 }

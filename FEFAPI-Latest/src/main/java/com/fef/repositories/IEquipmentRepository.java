@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.fef.model.AStarEquipment;
+import com.fef.model.FEFEquipment;
 
-public interface IEquipmentRepository extends CrudRepository<AStarEquipment, Integer>
+public interface IEquipmentRepository extends CrudRepository<FEFEquipment, Integer>
 
 {
-    public List<AStarEquipment> findByOemNameOrFabName(String oemName, String fabName);
+    public List<FEFEquipment> findByOemNameOrFabName(String oemName, String fabName);
 
-    public List<AStarEquipment> findByIsActiveTrueAndOemNameOrIsActiveTrueAndFabName(String oemName, String fabName);
+    public List<FEFEquipment> findByIsActiveTrueAndOemNameOrIsActiveTrueAndFabName(String oemName, String fabName);
     
-    public List<AStarEquipment> findByAppName(String appName);
+    public List<FEFEquipment> findByAppName(String appName);
 
 }

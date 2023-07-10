@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Component
-public class EFFServiceAuthenticationConfig implements WebMvcConfigurer
+public class FEFServiceAuthenticationConfig implements WebMvcConfigurer
 {
 
     @Autowired

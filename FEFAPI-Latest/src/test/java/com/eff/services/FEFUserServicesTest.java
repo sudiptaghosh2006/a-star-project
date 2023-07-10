@@ -12,18 +12,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.fef.common.dto.UserType;
-import com.fef.model.AStarApplicationUser;
+import com.fef.model.FEFApplicationUser;
 import com.fef.repositories.IUserRepository;
-import com.fef.services.impl.AstarUserServices;
+import com.fef.services.impl.FEFUserServices;
 
 
 @ExtendWith(MockitoExtension.class)
-class AstarUserServicesTest
+class FEFUserServicesTest
 {
     @Mock
     private IUserRepository userRepository;
     @InjectMocks
-    private AstarUserServices userServices;
+    private FEFUserServices userServices;
 
 
     @Test
@@ -31,16 +31,16 @@ class AstarUserServicesTest
     {
 	String userId = "Sudipta";
 	String userId2 = "Sudipta2";
-	AStarApplicationUser user1 = new AStarApplicationUser().setUserName(userId)
+	FEFApplicationUser user1 = new FEFApplicationUser().setUserName(userId)
 		.setUserType(UserType.ADMIN);
 
-	Optional<AStarApplicationUser> optional=Optional.of(user1);
+	Optional<FEFApplicationUser> optional=Optional.of(user1);
 //	Optional<AStarApplicationUser> optional2=Optional.of(null);
 	when(userRepository.findById(userId)).thenReturn(optional);
 	
 //	when(userRepository.findById(userId2)).thenReturn(optional2);
 	// test
-	AStarApplicationUser user = userServices.getUser(userId);
+	FEFApplicationUser user = userServices.getUser(userId);
 	
 //	AStarApplicationUser user2 = userServices.getUser(userId2);
 

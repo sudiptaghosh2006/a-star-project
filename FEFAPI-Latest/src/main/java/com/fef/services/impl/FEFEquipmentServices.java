@@ -8,17 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fef.dto.AStarEquipmentRequestDTO;
+import com.fef.dto.FEFEquipmentRequestDTO;
 import com.fef.exception.DuplicateEquipmentFoundException;
 import com.fef.exception.EquipmentNotFoundException;
-import com.fef.model.AStarEquipment;
+import com.fef.model.FEFEquipment;
 import com.fef.repositories.IEquipmentRepository;
 import com.fef.services.IEquipmentServices;
 import com.fef.services.IOEMURLServices;
 
 @Service
 @Transactional
-public class EquipmentServices implements IEquipmentServices
+public class FEFEquipmentServices implements IEquipmentServices
 {
 
     @Autowired
@@ -31,13 +31,13 @@ public class EquipmentServices implements IEquipmentServices
    private ModelMapper modelMapper;
 
     @Override
-    public List<AStarEquipment> getAll()
+    public List<FEFEquipment> getAll()
     {
-	List<AStarEquipment> findAll = (List) equipmentRepository.findAll();
+	List<FEFEquipment> findAll = (List) equipmentRepository.findAll();
 	if (findAll.size() > 0)
 	{
 	    findAll.forEach(equipment -> updateUrl(equipment));
-	    return (List<AStarEquipment>) findAll;
+	    return (List<FEFEquipment>) findAll;
 	}
 	else
 	{
@@ -46,12 +46,12 @@ public class EquipmentServices implements IEquipmentServices
     }
 
     @Override
-    public AStarEquipment getByID(Integer id)
+    public FEFEquipment getByID(Integer id)
     {
 //	https://capsmc.service-now.com/smc?id=smc_equipment&oem_name=A_SCAN_0010002
 
-	AStarEquipment equipment = null;
-	Optional<AStarEquipment> findById = equipmentRepository.findById(id);
+	FEFEquipment equipment = null;
+	Optional<FEFEquipment> findById = equipmentRepository.findById(id);
 	if (findById.isPresent())
 	{
 	    equipment = findById.get();
@@ -65,9 +65,9 @@ public class EquipmentServices implements IEquipmentServices
     }
 
     @Override
-    public List<AStarEquipment> getOemNameOrFabName(String oemNameOrFabName)
+    public List<FEFEquipment> getOemNameOrFabName(String oemNameOrFabName)
     {
-	List<AStarEquipment> dataList = equipmentRepository
+	List<FEFEquipment> dataList = equipmentRepository
 		.findByIsActiveTrueAndOemNameOrIsActiveTrueAndFabName(oemNameOrFabName,oemNameOrFabName);
 	if (!dataList.isEmpty())
 	{
@@ -82,49 +82,49 @@ public class EquipmentServices implements IEquipmentServices
 	}
     }
 
-    private AStarEquipment updateUrl(AStarEquipment equipment)
+    private FEFEquipment updateUrl(FEFEquipment equipment)
     {
-	if (equipment.getDefaultOemUrl() == null)
+	if (equipment.getUrl() == null)
 	{
 	    if (equipment.isLegacyService())
 	    {
-		equipment.setOemUrl(urlServices.getLegacyURL());
+		equipment.setDisplayOemUrl(urlServices.getLegacyURL());
 	    }
 	    else
 	    {
 		StringBuffer bufferUrl = new StringBuffer(urlServices.getSemiConnextURL()).append("?id=")
 			.append(equipment.getId()).append("&oem_name=").append(equipment.getOemName());
-		equipment.setOemUrl(bufferUrl.toString());
+		equipment.setDisplayOemUrl(bufferUrl.toString());
 	    }
 	}
 	else
 	{
-	    equipment.setOemUrl(equipment.getDefaultOemUrl());
+	    equipment.setUrl(equipment.getUrl());
 
 	}
 	return equipment;
     }
 
     @Override
-    public AStarEquipment update(AStarEquipment equipmentUpdate)
+    public FEFEquipment update(FEFEquipment equipmentUpdate)
     {
 	
-	AStarEquipment equipment = null;
-	Optional<AStarEquipment> findById = equipmentRepository.findById(equipmentUpdate.getId());
+	FEFEquipment equipment = null;
+	Optional<FEFEquipment> findById = equipmentRepository.findById(equipmentUpdate.getId());
 	if (findById.isPresent())
 	{
 	    equipment = findById.get();
-	    equipment.setDefaultOemUrl(equipmentUpdate.getDefaultOemUrl());
+	    equipment.setUrl(equipmentUpdate.getUrl());
 	    equipment.setActive(equipmentUpdate.isActive());
 	    equipment.setAppName(equipmentUpdate.getAppName());
 	    equipment.setFabName(equipmentUpdate.getFabName());
 	    equipment.setLegacyService(equipmentUpdate.isLegacyService());
-	    equipment.setMachineId(equipmentUpdate.getMachineId());
+	    equipment.setEquipmentId(equipmentUpdate.getEquipmentId());
 	    equipment.setOemName(equipmentUpdate.getOemName());
 	    
 	    
 	    
-	    AStarEquipment savedEquipment = equipmentRepository.save(equipment);
+	    FEFEquipment savedEquipment = equipmentRepository.save(equipment);
 	    return savedEquipment;
 	}
 	else
@@ -134,19 +134,19 @@ public class EquipmentServices implements IEquipmentServices
     }
 
     @Override
-    public AStarEquipment save(AStarEquipmentRequestDTO equipment)
+    public FEFEquipment save(FEFEquipmentRequestDTO equipment)
     {
 	checkBeforeSave(equipment.getAppName());	
-	AStarEquipment newEquipment = modelMapper.map(equipment, AStarEquipment.class);
+	FEFEquipment newEquipment = modelMapper.map(equipment, FEFEquipment.class);
 	
-	AStarEquipment savedEquipment = equipmentRepository.save(newEquipment);
+	FEFEquipment savedEquipment = equipmentRepository.save(newEquipment);
 	
 	return savedEquipment;
     }
     
     private void checkBeforeSave(String appName)
     {
-	List<AStarEquipment> activeEquipmentWithAppName = equipmentRepository.findByAppName(appName);
+	List<FEFEquipment> activeEquipmentWithAppName = equipmentRepository.findByAppName(appName);
 	if(activeEquipmentWithAppName.size()>0)
 	{
 	    throw new DuplicateEquipmentFoundException("Active equipment found in DB with same app name = "+appName );

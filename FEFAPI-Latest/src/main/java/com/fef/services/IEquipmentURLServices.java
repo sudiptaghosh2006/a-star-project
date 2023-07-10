@@ -4,20 +4,20 @@ package com.fef.services;
 
 import java.util.List;
 
-import com.fef.model.AStarEquipmentUrl;
+import com.fef.model.FEFEquipmentUrl;
 
 public interface IEquipmentURLServices
 {
     
-    public AStarEquipmentUrl createEquipmentURL(AStarEquipmentUrl url);
+    public FEFEquipmentUrl createEquipmentURL(FEFEquipmentUrl url);
     
-    public AStarEquipmentUrl updateEquipmentURL(AStarEquipmentUrl url);
+    public FEFEquipmentUrl updateEquipmentURL(FEFEquipmentUrl url);
     
     public boolean deleteEquipmentURL(String systemId);
     
-    public AStarEquipmentUrl getEquipmentURL(String systemId);
+    public FEFEquipmentUrl getEquipmentURL(String systemId);
        
-    public List<AStarEquipmentUrl> getAllEquipmentURL();
+    public List<FEFEquipmentUrl> getAllEquipmentURL();
     
     
     

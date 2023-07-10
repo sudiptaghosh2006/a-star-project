@@ -15,11 +15,11 @@ import org.springframework.http.ResponseEntity;
 
 import com.fef.common.dto.ApplicationResponseData;
 import com.fef.controller.FEFEquipmentController;
-import com.fef.model.AStarEquipment;
+import com.fef.model.FEFEquipment;
 import com.fef.services.IEquipmentServices;
 
 @ExtendWith(MockitoExtension.class)
-class EFFClientControllerTest
+class FEFClientControllerTest
 {
 
     @InjectMocks
@@ -31,10 +31,10 @@ class EFFClientControllerTest
     @Test
     void testGetAllEquipment()
     {
-	List<AStarEquipment> list = new ArrayList<AStarEquipment>();
-	AStarEquipment equip1 = new AStarEquipment().setId(1).setLegacyService(true).setOemName("demo");
+	List<FEFEquipment> list = new ArrayList<FEFEquipment>();
+	FEFEquipment equip1 = new FEFEquipment().setId(1).setLegacyService(true).setOemName("demo");
 
-	AStarEquipment equip2 = new AStarEquipment().setId(2).setLegacyService(false)
+	FEFEquipment equip2 = new FEFEquipment().setId(2).setLegacyService(false)
 		.setOemName("A_SCAN_0010002");
 
 	list.add(equip1);
@@ -43,7 +43,7 @@ class EFFClientControllerTest
 
         when(equipmentServices.getAll()).thenReturn(list);
 
-        ResponseEntity<ApplicationResponseData<List<AStarEquipment>>> allEquipment = clientController.getAllEquipment();
+        ResponseEntity<ApplicationResponseData<List<FEFEquipment>>> allEquipment = clientController.getAllEquipment();
 
         assertThat(allEquipment.getBody().getResponseData().size()).isEqualTo(2);
 //        assertThat(result.getEmployeeList().get(0).getFirstName()).isEqualTo(employee1.getFirstName());

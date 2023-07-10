@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fef.common.dto.ApplicationResponseData;
 import com.fef.common.dto.ServiceResponseStatus;
 import com.fef.common.dto.ServiceResponseStatusConstant;
-import com.fef.model.AStarApplicationUser;
-import com.fef.model.AStarEquipmentUrl;
+import com.fef.model.FEFEquipmentUrl;
 import com.fef.services.IEquipmentURLServices;
-import com.fef.services.IUserServices;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -36,42 +34,42 @@ public class FEFEquipmentUrlController
 
     @GetMapping("/api/v1/urls/")
     @Operation(tags = "Equipment URL Finder", description = "Gets all available Equipment URL ", summary = "Gets all available Equipment URL")
-    public ResponseEntity<ApplicationResponseData< List<AStarEquipmentUrl>>> getAllActiveURL()
+    public ResponseEntity<ApplicationResponseData< List<FEFEquipmentUrl>>> getAllActiveURL()
     {
 	LOGGER.debug("Started operation to retrieve All Equipment URLs");
 	
-	List<AStarEquipmentUrl> allEquipmentURL = services.getAllEquipmentURL();
+	List<FEFEquipmentUrl> allEquipmentURL = services.getAllEquipmentURL();
 	ServiceResponseStatus responseStatus = new ServiceResponseStatus();
 	responseStatus.setResponseCode(ServiceResponseStatusConstant.SUCCESS_CODE);
 	responseStatus.setResponseMessage(ServiceResponseStatusConstant.SUCCESS_MESSAGE);
-	ApplicationResponseData< List<AStarEquipmentUrl>> responseData=new ApplicationResponseData<>();
+	ApplicationResponseData< List<FEFEquipmentUrl>> responseData=new ApplicationResponseData<>();
 	responseData.setResponseData(allEquipmentURL);
 	responseData.setResponseStatus(responseStatus);
 	
 	LOGGER.debug("Finished operation to retrieve All Equipment URLs");
 
-	return new ResponseEntity<ApplicationResponseData<List<AStarEquipmentUrl>>>(responseData, HttpStatus.OK);
+	return new ResponseEntity<ApplicationResponseData<List<FEFEquipmentUrl>>>(responseData, HttpStatus.OK);
 	
 
     }
     
     @GetMapping("/api/v1/urls/{systemId}")
     @Operation(tags = "Equipment URL Finder", description = "Gets the Equipment URL ", summary = "Equipment URL finder")
-    public ResponseEntity<ApplicationResponseData<AStarEquipmentUrl>> getAllActiveURLByID(@PathVariable String systemId )
+    public ResponseEntity<ApplicationResponseData<FEFEquipmentUrl>> getAllActiveURLByID(@PathVariable String systemId )
     {
 	LOGGER.debug("Started operation to retrieve Equipment URLs for :: {}",systemId);
 	
-	AStarEquipmentUrl url = services.getEquipmentURL(systemId);
+	FEFEquipmentUrl url = services.getEquipmentURL(systemId);
 	ServiceResponseStatus responseStatus = new ServiceResponseStatus();
 	responseStatus.setResponseCode(ServiceResponseStatusConstant.SUCCESS_CODE);
 	responseStatus.setResponseMessage(ServiceResponseStatusConstant.SUCCESS_MESSAGE);
-	ApplicationResponseData< AStarEquipmentUrl> responseData=new ApplicationResponseData<>();
+	ApplicationResponseData< FEFEquipmentUrl> responseData=new ApplicationResponseData<>();
 	responseData.setResponseData(url);
 	responseData.setResponseStatus(responseStatus);
 	
 	LOGGER.debug("Finished operation to retrieve  Equipment URLs for :: ",systemId);
 
-	return new ResponseEntity<ApplicationResponseData< AStarEquipmentUrl>>(responseData, HttpStatus.OK);
+	return new ResponseEntity<ApplicationResponseData< FEFEquipmentUrl>>(responseData, HttpStatus.OK);
 	
 
     }
@@ -79,40 +77,40 @@ public class FEFEquipmentUrlController
     
     @PostMapping("/api/v1/urls/")
     @Operation(tags = "Equipment URL Finder", description = "Creates new Equipment URL ", summary = "Creates new Equipment URL")
-    public ResponseEntity<ApplicationResponseData<AStarEquipmentUrl>> createActiveURL(@RequestBody AStarEquipmentUrl url )
+    public ResponseEntity<ApplicationResponseData<FEFEquipmentUrl>> createActiveURL(@RequestBody FEFEquipmentUrl url )
     {
 	LOGGER.debug("Started operation to create Equipment URLs for :: {}",url);
 	
-	AStarEquipmentUrl newURL = services.createEquipmentURL(url);
+	FEFEquipmentUrl newURL = services.createEquipmentURL(url);
 	ServiceResponseStatus responseStatus = new ServiceResponseStatus();
 	responseStatus.setResponseCode(ServiceResponseStatusConstant.SUCCESS_CODE);
 	responseStatus.setResponseMessage(ServiceResponseStatusConstant.SUCCESS_MESSAGE);
-	ApplicationResponseData< AStarEquipmentUrl> responseData=new ApplicationResponseData<>();
+	ApplicationResponseData< FEFEquipmentUrl> responseData=new ApplicationResponseData<>();
 	responseData.setResponseData(newURL);
 	responseData.setResponseStatus(responseStatus);
 	
 	LOGGER.debug("Finished operation to create  Equipment URLs for :: ",url);
 
-	return new ResponseEntity<ApplicationResponseData< AStarEquipmentUrl>>(responseData, HttpStatus.OK);
+	return new ResponseEntity<ApplicationResponseData< FEFEquipmentUrl>>(responseData, HttpStatus.OK);
     }
     
     @PutMapping("/api/v1/urls/")
     @Operation(tags = "Equipment URL Finder", description = "Update the Equipment URL ", summary = "Update the Equipment URL ")
-    public ResponseEntity<ApplicationResponseData<AStarEquipmentUrl>> updateActiveURL(@RequestBody AStarEquipmentUrl url )
+    public ResponseEntity<ApplicationResponseData<FEFEquipmentUrl>> updateActiveURL(@RequestBody FEFEquipmentUrl url )
     {
 	LOGGER.debug("Started operation to update Equipment URLs for :: {}",url);
 	
-	AStarEquipmentUrl newURL = services.updateEquipmentURL(url);
+	FEFEquipmentUrl newURL = services.updateEquipmentURL(url);
 	ServiceResponseStatus responseStatus = new ServiceResponseStatus();
 	responseStatus.setResponseCode(ServiceResponseStatusConstant.SUCCESS_CODE);
 	responseStatus.setResponseMessage(ServiceResponseStatusConstant.SUCCESS_MESSAGE);
-	ApplicationResponseData< AStarEquipmentUrl> responseData=new ApplicationResponseData<>();
+	ApplicationResponseData< FEFEquipmentUrl> responseData=new ApplicationResponseData<>();
 	responseData.setResponseData(newURL);
 	responseData.setResponseStatus(responseStatus);
 	
 	LOGGER.debug("Finished operation to update Equipment URLs for :: ",url);
 
-	return new ResponseEntity<ApplicationResponseData< AStarEquipmentUrl>>(responseData, HttpStatus.OK);
+	return new ResponseEntity<ApplicationResponseData< FEFEquipmentUrl>>(responseData, HttpStatus.OK);
     }
 
     @DeleteMapping("/api/v1/urls/{id}")

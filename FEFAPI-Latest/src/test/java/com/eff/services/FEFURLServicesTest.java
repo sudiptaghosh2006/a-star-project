@@ -2,7 +2,7 @@ package com.eff.services;
 
 import org.junit.jupiter.api.Test;
 
-class OEMURLServicesTest
+class FEFURLServicesTest
 {
     
     

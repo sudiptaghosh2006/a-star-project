@@ -12,8 +12,8 @@ import jakarta.persistence.Table;
 //import javax.persistence.Table;
 
 @Entity
-@Table(name = "AStarApplicationUsers")
-public class AStarApplicationUser
+@Table(name = "FefApplicationUsers")
+public class FEFApplicationUser
 {
 
 //    @Id
@@ -30,7 +30,7 @@ public class AStarApplicationUser
 	return userType;
     }
 
-    public AStarApplicationUser setUserType(String userType)
+    public FEFApplicationUser setUserType(String userType)
     {
 	this.userType = userType;
 	return this;
@@ -41,7 +41,7 @@ public class AStarApplicationUser
 	return userName;
     }
 
-    public AStarApplicationUser setUserName(String userName)
+    public FEFApplicationUser setUserName(String userName)
     {
 	this.userName = userName;
 	return this;

@@ -2,23 +2,23 @@ package com.fef.services;
 
 import java.util.List;
 
-import com.fef.dto.AStarEquipmentRequestDTO;
-import com.fef.model.AStarEquipment;
+import com.fef.dto.FEFEquipmentRequestDTO;
+import com.fef.model.FEFEquipment;
 
 public interface IEquipmentServices 
 {
     
-    public AStarEquipment  save(AStarEquipmentRequestDTO equipment);
+    public FEFEquipment  save(FEFEquipmentRequestDTO equipment);
 //
-    public AStarEquipment  update(AStarEquipment equipment);
+    public FEFEquipment  update(FEFEquipment equipment);
 //
 //    public boolean delete(int id);
 
-    public List<AStarEquipment> getAll();
+    public List<FEFEquipment> getAll();
 
-    public AStarEquipment getByID(Integer id);
+    public FEFEquipment getByID(Integer id);
     
 //    public List<AStarEquipment> getOemNameOrFabName(String oemName,String fabName);
-    public List<AStarEquipment> getOemNameOrFabName(String oemNameOrFabName);
+    public List<FEFEquipment> getOemNameOrFabName(String oemNameOrFabName);
 
 }

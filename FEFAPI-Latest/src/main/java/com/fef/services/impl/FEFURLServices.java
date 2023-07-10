@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fef.model.AStarEquipmentUrl;
+import com.fef.model.FEFEquipmentUrl;
 import com.fef.repositories.IEquipmentUrlRepository;
 import com.fef.services.IOEMURLServices;
 
@@ -16,7 +16,7 @@ import jakarta.annotation.PostConstruct;
 
 @Service
 @Transactional
-public class OEMURLServices implements IOEMURLServices
+public class FEFURLServices implements IOEMURLServices
 {
     @Autowired
     private IEquipmentUrlRepository repository;
@@ -37,7 +37,7 @@ public class OEMURLServices implements IOEMURLServices
     @PostConstruct
     private void retrieveSystemURL() {
 	
-	List<AStarEquipmentUrl> listUrl = (List<AStarEquipmentUrl>) repository.findAll();
+	List<FEFEquipmentUrl> listUrl = (List<FEFEquipmentUrl>) repository.findAll();
 	urlMap = listUrl.stream().collect(Collectors.toMap(url->url.getSystemId(),url->url.getSystemUrl()));
     }
 

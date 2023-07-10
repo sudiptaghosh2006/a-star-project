@@ -15,8 +15,8 @@ import jakarta.persistence.Table;
 //import javax.persistence.Table;
 
 @Entity
-@Table(name = "AStarEquipmentUrls")
-public class AStarEquipmentUrl
+@Table(name = "FefEquipmentUrls")
+public class FEFEquipmentUrl
 {
    
     @Id
@@ -29,7 +29,7 @@ public class AStarEquipmentUrl
     {
         return systemId;
     }
-    public AStarEquipmentUrl setId(String systemId)
+    public FEFEquipmentUrl setId(String systemId)
     {
         this.systemId = systemId;
         return this;
@@ -38,7 +38,7 @@ public class AStarEquipmentUrl
     {
         return systemUrl;
     }
-    public AStarEquipmentUrl setSystemUrl(String systemUrl)
+    public FEFEquipmentUrl setSystemUrl(String systemUrl)
     {
         this.systemUrl = systemUrl;
         return this;

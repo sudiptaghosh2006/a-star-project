@@ -8,32 +8,32 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fef.exception.UrlNotFoundException;
-import com.fef.model.AStarEquipmentUrl;
+import com.fef.model.FEFEquipmentUrl;
 import com.fef.repositories.IEquipmentUrlRepository;
 import com.fef.services.IEquipmentURLServices;
 
 
 @Service
 @Transactional
-public class EquipmentURLServices implements IEquipmentURLServices
+public class FEFEquipmentURLServices implements IEquipmentURLServices
 {
     @Autowired
     private IEquipmentUrlRepository urlRepository;
 
     @Override
-    public AStarEquipmentUrl createEquipmentURL(AStarEquipmentUrl url)
+    public FEFEquipmentUrl createEquipmentURL(FEFEquipmentUrl url)
     {
 	return urlRepository.save(url);
     }
 
     @Override
-    public AStarEquipmentUrl updateEquipmentURL(AStarEquipmentUrl url)
+    public FEFEquipmentUrl updateEquipmentURL(FEFEquipmentUrl url)
     {
-	AStarEquipmentUrl returnValue ;
-	Optional<AStarEquipmentUrl> optional = urlRepository.findById(url.getSystemId());
+	FEFEquipmentUrl returnValue ;
+	Optional<FEFEquipmentUrl> optional = urlRepository.findById(url.getSystemId());
 	if (optional.isPresent())
 	{
-	    AStarEquipmentUrl starEquipmentUrl = optional.get();
+	    FEFEquipmentUrl starEquipmentUrl = optional.get();
 	    starEquipmentUrl.setSystemUrl(url.getSystemUrl());
 	    urlRepository.save(starEquipmentUrl);	    
 	    returnValue = starEquipmentUrl;
@@ -51,10 +51,10 @@ public class EquipmentURLServices implements IEquipmentURLServices
     public boolean deleteEquipmentURL(String systemId)
     {
 	boolean returnValue = false;
-	Optional<AStarEquipmentUrl> optional = urlRepository.findById(systemId);
+	Optional<FEFEquipmentUrl> optional = urlRepository.findById(systemId);
 	if (optional.isPresent())
 	{
-	    AStarEquipmentUrl starEquipmentUrl = optional.get();
+	    FEFEquipmentUrl starEquipmentUrl = optional.get();
 	    urlRepository.delete(starEquipmentUrl);
 	    returnValue = true;
 	}
@@ -67,9 +67,9 @@ public class EquipmentURLServices implements IEquipmentURLServices
     }
 
     @Override
-    public AStarEquipmentUrl getEquipmentURL(String systemId)
+    public FEFEquipmentUrl getEquipmentURL(String systemId)
     {
-	Optional<AStarEquipmentUrl> optional = urlRepository.findById(systemId);
+	Optional<FEFEquipmentUrl> optional = urlRepository.findById(systemId);
 	if (optional.isPresent())
 	{
 	    return optional.get();
@@ -81,9 +81,9 @@ public class EquipmentURLServices implements IEquipmentURLServices
     }
 
     @Override
-    public List<AStarEquipmentUrl> getAllEquipmentURL()
+    public List<FEFEquipmentUrl> getAllEquipmentURL()
     {
-	return (List<AStarEquipmentUrl>) urlRepository.findAll();
+	return (List<FEFEquipmentUrl>) urlRepository.findAll();
 
     }
 

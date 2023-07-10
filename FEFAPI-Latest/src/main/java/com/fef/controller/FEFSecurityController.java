@@ -12,10 +12,10 @@ import com.fef.jwt.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
-public class EFFSecurityController
+public class FEFSecurityController
 {
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(EFFSecurityController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FEFSecurityController.class);
     
     @ Autowired
     private JwtUtil jwtUtil;

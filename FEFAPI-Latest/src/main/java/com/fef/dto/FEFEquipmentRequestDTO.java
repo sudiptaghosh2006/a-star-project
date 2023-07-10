@@ -1,6 +1,6 @@
 package com.fef.dto;
 
-public class AStarEquipmentRequestDTO
+public class FEFEquipmentRequestDTO
 {
 
     private Integer machineId;

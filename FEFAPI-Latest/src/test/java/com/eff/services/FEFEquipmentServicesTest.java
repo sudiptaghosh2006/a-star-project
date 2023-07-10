@@ -16,13 +16,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.fef.*;
 import com.fef.exception.EquipmentNotFoundException;
-import com.fef.model.AStarEquipment;
+import com.fef.model.FEFEquipment;
 import com.fef.repositories.IEquipmentRepository;
 import com.fef.services.IOEMURLServices;
-import com.fef.services.impl.EquipmentServices;
+import com.fef.services.impl.FEFEquipmentServices;
 
 @ExtendWith(MockitoExtension.class)
-class EquipmentServicesTest
+class FEFEquipmentServicesTest
 {
 
     @Mock
@@ -32,13 +32,13 @@ class EquipmentServicesTest
     private IOEMURLServices ioemurlServices;
 
     @InjectMocks
-    private EquipmentServices equipmentServices;
+    private FEFEquipmentServices equipmentServices;
 
 //    @Test
     void testGetAll()
     {
-	List<AStarEquipment> list = new ArrayList<AStarEquipment>();
-	AStarEquipment equip1 = new AStarEquipment()
+	List<FEFEquipment> list = new ArrayList<FEFEquipment>();
+	FEFEquipment equip1 = new FEFEquipment()
 		.setId(1)//.setLegacyService(true)
 //		.setOemName("demo")
 //		.setActive(false)
@@ -59,7 +59,7 @@ class EquipmentServicesTest
 	when(ioemurlServices.getSemiConnextURL()).thenReturn("https://capsmc.service-now.com/smc");
 
 	// test
-	List<AStarEquipment> equipmentList = equipmentServices.getAll();
+	List<FEFEquipment> equipmentList = equipmentServices.getAll();
 
 	assertEquals(1, equipmentList.size());
 //	AStarEquipment equipment = equipmentList.get(0);
@@ -75,7 +75,7 @@ class EquipmentServicesTest
     @Test
     void testGetAllThrowsException()
     {
-	when(equipmentRepository.findAll()).thenReturn(new ArrayList<AStarEquipment>());
+	when(equipmentRepository.findAll()).thenReturn(new ArrayList<FEFEquipment>());
 	assertThrows(EquipmentNotFoundException.class, () -> equipmentServices.getAll());
 
     }
