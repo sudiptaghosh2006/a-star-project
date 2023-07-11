@@ -138,6 +138,10 @@ public class FEFEquipmentServices implements IEquipmentServices
     {
 	checkBeforeSave(equipment.getAppName());	
 	FEFEquipment newEquipment = modelMapper.map(equipment, FEFEquipment.class);
+	if(newEquipment.getId()!=null)
+	{
+	   newEquipment.setId(null);
+	}
 	
 	FEFEquipment savedEquipment = equipmentRepository.save(newEquipment);
 	
